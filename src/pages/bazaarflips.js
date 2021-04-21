@@ -12,6 +12,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Select from '@material-ui/core/Select';
 import Paper from '@material-ui/core/Paper';
 
 // axios
@@ -43,9 +44,10 @@ const styles = {
 
 class BazaarFlips extends Component {
   state = {
-    order: [],
+    order: [[], []],
     items: {},
     names: {},
+    sortPercent: true,
   };
 
   componentDidMount() {
@@ -54,7 +56,7 @@ class BazaarFlips extends Component {
       .then((res) => {
         this.setState({
           ...this.state,
-          order: res.data.sorted,
+          order: [res.data.sorted, res.data.sortedValue],
           items: res.data.items,
         });
       });
@@ -75,11 +77,18 @@ class BazaarFlips extends Component {
       .then((res) => {
         this.setState({
           ...this.state,
-          order: res.data.sorted,
+          order: [res.data.sorted, res.data.sortedValue],
           items: res.data.items,
         });
       });
   }, 5000);
+
+  handleChange = (event) => {
+    this.setState({
+      ...this.state,
+      sortPercent: event.target.value,
+    });
+  };
 
   render() {
     const { classes } = this.props;
@@ -88,6 +97,20 @@ class BazaarFlips extends Component {
         <header className="App-header">
           <div className={classes.wrapper}>
             <div className={classes.cardHolder}>
+                Sort with:
+              <Select
+                value={this.state.sortPercent}
+                onChange={this.handleChange}
+                inputProps={{
+                  name: 'Sort with',
+                  id: 'age-native-label-placeholder',
+                }}
+                fullWidth
+                style={{ marginBottom: '5%', color: 'white' }}
+              >
+                <option value={true}>Margin as Percent</option>
+                <option value={false}>Margin as Value</option>
+              </Select>
               <TableContainer component={Paper}>
                 <Table
                   className={classes.table}
@@ -111,69 +134,93 @@ class BazaarFlips extends Component {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {this.state.order.map((e, i) => (
-                      <TableRow key={i + 1} hover>
-                        <TableCell
-                          component="th"
-                          scope="row"
-                          className={classes.tableItem}
-                        >
-                          <a href={'/#/itemview/' + e} className={classes.link}>
-                            {this.state.names[e] === undefined ? (
-                              <span style={{ color: 'orange' }}>
-                                {e
-                                  .replace(/_/g, ' ')
-                                  .replace(/\S*/g, function (word) {
-                                    return (
-                                      word.charAt(0) +
-                                      word.slice(1).toLowerCase()
-                                    );
-                                  })}
-                              </span>
-                            ) : (
-                              this.state.names[e]
-                            )}
-                          </a>
-                        </TableCell>
-                        <TableCell align="right" className={classes.tableItem}>
-                          {
-                            <span
-                              style={{
-                                color:
-                                  this.state.items[e].margin > 0
-                                    ? '#00ff00'
-                                    : this.state.items[e].margin === 0
-                                    ? 'grey'
-                                    : '#ff0000',
-                              }}
+                    {this.state.order[this.state.sortPercent ? 0 : 1].map(
+                      (e, i) => (
+                        <TableRow key={i + 1} hover>
+                          <TableCell
+                            component="th"
+                            scope="row"
+                            className={classes.tableItem}
+                          >
+                            <a
+                              href={'/#/itemview/' + e}
+                              className={classes.link}
                             >
-                              {(this.state.items[e].margin >= 0 ? '+' : '') +
-                                (
-                                  Math.round(
-                                    this.state.items[e].margin * 10000
-                                  ) / 100
-                                )
-                                  .toFixed(1)
-                                  .toString()
-                                  .replace(/\B(?=(\d{3})+(?!\d))/g, ',') +
-                                '%'}
-                            </span>
-                          }
-                        </TableCell>
-                        <TableCell align="right" className={classes.tableItem}>
-                          {this.state.items[e].buyOffer
-                            .toFixed(1)
-                            .toString()
-                            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                        </TableCell>
-                        <TableCell align="right" className={classes.tableItem}>
-                          {this.state.items[e].sellOffer
-                            .toFixed(1)
-                            .toString()
-                            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                        </TableCell>
-                      </TableRow>
-                    ))}
+                              {this.state.names[e] === undefined ? (
+                                <span style={{ color: 'orange' }}>
+                                  {e
+                                    .replace(/_/g, ' ')
+                                    .replace(/\S*/g, function (word) {
+                                      return (
+                                        word.charAt(0) +
+                                        word.slice(1).toLowerCase()
+                                      );
+                                    })}
+                                </span>
+                              ) : (
+                                this.state.names[e]
+                              )}
+                            </a>
+                          </TableCell>
+                          <TableCell
+                            align="right"
+                            className={classes.tableItem}
+                          >
+                            {
+                              <span
+                                style={{
+                                  color:
+                                    (this.state.sortPercent
+                                      ? this.state.items[e].margin
+                                      : this.state.items[e].pureMargin) > 0
+                                      ? '#00ff00'
+                                      : (this.state.sortPercent
+                                          ? this.state.items[e].margin
+                                          : this.state.items[e].pureMargin) ===
+                                        0
+                                      ? 'grey'
+                                      : '#ff0000',
+                                }}
+                              >
+                                {((this.state.sortPercent
+                                  ? this.state.items[e].margin
+                                  : this.state.items[e].pureMargin) >= 0
+                                  ? '+'
+                                  : '') +
+                                  (this.state.sortPercent
+                                    ? Math.round(
+                                        this.state.items[e].margin * 10000
+                                      ) / 100
+                                    : this.state.items[e].pureMargin
+                                  )
+                                    .toFixed(1)
+                                    .toString()
+                                    .replace(/\B(?=(\d{3})+(?!\d))/g, ',') +
+                                  (this.state.sortPercent ? '%' : '')}
+                              </span>
+                            }
+                          </TableCell>
+                          <TableCell
+                            align="right"
+                            className={classes.tableItem}
+                          >
+                            {this.state.items[e].buyOffer
+                              .toFixed(1)
+                              .toString()
+                              .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                          </TableCell>
+                          <TableCell
+                            align="right"
+                            className={classes.tableItem}
+                          >
+                            {this.state.items[e].sellOffer
+                              .toFixed(1)
+                              .toString()
+                              .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                          </TableCell>
+                        </TableRow>
+                      )
+                    )}
                   </TableBody>
                 </Table>
               </TableContainer>
