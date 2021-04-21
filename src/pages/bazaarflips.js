@@ -6,10 +6,13 @@ import React, { Component } from 'react';
 // MUI
 import { withStyles } from '@material-ui/core/styles';
 import theme from '../util/theme';
-
-// Components
-import BazaarHelper from '../components/bazaarhelper';
-import BazaarItem from '../components/bazaaritem';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 
 // axios
 import axios from 'axios';
@@ -17,17 +20,20 @@ import axios from 'axios';
 const styles = {
   ...theme.spreadIt,
   wrapper: {
-    width: '100%',
+    width: '98%',
     overflow: 'hidden',
+    paddingTop: '2%',
+    paddingLeft: '2%',
+    paddingBottom: '2%',
   },
   cardHolder: {
     float: 'left',
-    width: '50%',
-    fontSize: '20px',
+    width: '49%',
+    fontSize: '25px',
     display: 'inline-block',
   },
   notes: {
-    width: '49%',
+    width: '48%',
     paddingLeft: '1%',
     fontSize: '20px',
     display: 'inline-block',
@@ -82,22 +88,80 @@ class BazaarFlips extends Component {
         <header className="App-header">
           <div className={classes.wrapper}>
             <div className={classes.cardHolder}>
-              <BazaarHelper />
-              <div>
-                {this.state.order.map((e, i) => {
-                  return (
-                    <BazaarItem
-                      item={{
-                        rank: i + 1,
-                        name: this.state.names[e],
-                        margin: this.state.items[e].margin,
-                        buyOffer: this.state.items[e].buyOffer,
-                        sellOffer: this.state.items[e].sellOffer,
-                      }}
-                    />
-                  );
-                })}
-              </div>
+              <TableContainer component={Paper}>
+                <Table
+                  className={classes.table}
+                  size="small"
+                  aria-label="a dense table"
+                >
+                  <TableHead>
+                    <TableRow>
+                      <TableCell className={classes.tableItem}>
+                        Item Name
+                      </TableCell>
+                      <TableCell align="right" className={classes.tableItem}>
+                        Margin
+                      </TableCell>
+                      <TableCell align="right" className={classes.tableItem}>
+                        Buy Price
+                      </TableCell>
+                      <TableCell align="right" className={classes.tableItem}>
+                        Sell Price
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {this.state.order.map((e, i) => (
+                      <TableRow key={i + 1} hover>
+                        <TableCell
+                          component="th"
+                          scope="row"
+                          className={classes.tableItem}
+                        >
+                          {this.state.names[e]}
+                        </TableCell>
+                        <TableCell align="right" className={classes.tableItem}>
+                          {
+                            <span
+                              style={{
+                                color:
+                                  this.state.items[e].margin > 0
+                                    ? 'green'
+                                    : this.state.items[e].margin === 0
+                                    ? 'grey'
+                                    : 'red',
+                              }}
+                            >
+                              {(this.state.items[e].margin >= 0 ? '+' : '') +
+                                (
+                                  Math.round(
+                                    this.state.items[e].margin * 10000
+                                  ) / 100
+                                )
+                                  .toFixed(1)
+                                  .toString()
+                                  .replace(/\B(?=(\d{3})+(?!\d))/g, ',') +
+                                '%'}
+                            </span>
+                          }
+                        </TableCell>
+                        <TableCell align="right" className={classes.tableItem}>
+                          {this.state.items[e].buyOffer
+                            .toFixed(1)
+                            .toString()
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                        </TableCell>
+                        <TableCell align="right" className={classes.tableItem}>
+                          {this.state.items[e].sellOffer
+                            .toFixed(1)
+                            .toString()
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
             </div>
             <div className={classes.notes}>
               <h1>Bazaar Flips</h1>

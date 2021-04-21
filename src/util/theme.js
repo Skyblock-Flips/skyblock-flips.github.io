@@ -1,42 +1,50 @@
-import { createMuiTheme } from "@material-ui/core/styles";
+import { createMuiTheme } from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#282c34",
+      main: '#aaaaaa',
+      light: '#dddddd',
     },
     secondary: {
-      light: "#0066ff",
-      main: "#0044ff",
+      light: '#0066ff',
+      main: '#0044ff',
     },
   },
   spreadIt: {
     button: {
-      backgroundColor: "#4CAFFF",
+      backgroundColor: '#4CAFFF',
 
-      textAlign: "center",
-      fontSize: "25px",
-      padding: "10px 5px",
-      color: "white",
+      textAlign: 'center',
+      fontSize: '25px',
+      padding: '10px 5px',
+      color: 'white',
 
-      outlineStyle: "none",
-      border: "none",
-      cursor: "pointer",
+      outlineStyle: 'none',
+      border: 'none',
+      cursor: 'pointer',
 
-      marginTop: "25px",
+      marginTop: '25px',
 
       /*position:fixed;*/
-      minWidth: "10%",
+      minWidth: '10%',
     },
     error: {
-      color: "red",
+      color: 'red',
     },
     inputField: {
-      backgroundColor: "white",
+      backgroundColor: 'white',
     },
     link: {
-      textDecoration: "none",
-    }
+      textDecoration: 'none',
+    },
+    table: {
+      backgroundColor: '#424242',
+      border: "thin solid #515151",
+    },
+    tableItem: {
+      color: 'white',
+    },
   },
 });
 
