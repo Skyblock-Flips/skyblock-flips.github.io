@@ -118,7 +118,7 @@ class BazaarFlips extends Component {
                           scope="row"
                           className={classes.tableItem}
                         >
-                          {this.state.names[e]}
+                          <a href={"/#/itemview/" + e} className={classes.link}>{this.state.names[e]}</a>
                         </TableCell>
                         <TableCell align="right" className={classes.tableItem}>
                           {

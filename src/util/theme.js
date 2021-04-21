@@ -37,12 +37,16 @@ const theme = createMuiTheme({
     },
     link: {
       textDecoration: 'none',
+      color: "white",
+      textAlign: "none",
     },
     table: {
       backgroundColor: '#424242',
+      border: "thin solid #515151",
     },
     tableItem: {
       color: 'white',
+      borderBottom: "thin solid #515151",
     },
   },
 });

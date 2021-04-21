@@ -11,6 +11,7 @@ import {
 // Pages
 import Home from './pages/home';
 import BazaarFlips from './pages/bazaarflips';
+import ItemView from './pages/itemview';
 import PageNotFound from './pages/pagenotfound';
 
 // Styling
@@ -29,6 +30,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/bazaar" component={BazaarFlips} />
+              <Route exact path="/itemview/:item" component={ItemView} />
               <Route path="/*" component={PageNotFound} />
             </Switch>
           </Router>
