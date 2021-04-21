@@ -97,16 +97,16 @@ class BazaarFlips extends Component {
                   <TableHead>
                     <TableRow>
                       <TableCell className={classes.tableItem}>
-                        Item Name
+                        <b>Item Name</b>
                       </TableCell>
                       <TableCell align="right" className={classes.tableItem}>
-                        Margin
+                        <b>Margin</b>
                       </TableCell>
                       <TableCell align="right" className={classes.tableItem}>
-                        Buy Price
+                        <b>Buy Price</b>
                       </TableCell>
                       <TableCell align="right" className={classes.tableItem}>
-                        Sell Price
+                        <b>Sell Price</b>
                       </TableCell>
                     </TableRow>
                   </TableHead>
@@ -126,10 +126,10 @@ class BazaarFlips extends Component {
                               style={{
                                 color:
                                   this.state.items[e].margin > 0
-                                    ? 'green'
+                                    ? '#00ff00'
                                     : this.state.items[e].margin === 0
                                     ? 'grey'
-                                    : 'red',
+                                    : '#ff0000',
                               }}
                             >
                               {(this.state.items[e].margin >= 0 ? '+' : '') +

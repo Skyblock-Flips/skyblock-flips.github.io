@@ -40,7 +40,6 @@ const theme = createMuiTheme({
     },
     table: {
       backgroundColor: '#424242',
-      border: "thin solid #515151",
     },
     tableItem: {
       color: 'white',
