@@ -74,7 +74,7 @@ class ItemView extends Component {
         <header className="App-header">
           <Card className={classes.card}>
             <h1>
-              {this.state.names === undefined ? (
+              {this.state.items.margins === undefined ? (
                 'Loading...'
               ) : this.state.names[item] === undefined ? (
                 <span style={{ color: 'orange' }}>
