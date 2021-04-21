@@ -34,6 +34,9 @@ const theme = createMuiTheme({
     inputField: {
       backgroundColor: "white",
     },
+    link: {
+      textDecoration: "none",
+    }
   },
 });
 

@@ -29,7 +29,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/bazaar" component={BazaarFlips} />
-              <Route path="*" component={PageNotFound} />
+              <Route path="/*" component={PageNotFound} />
             </Switch>
           </Router>
         </MuiThemeProvider>
