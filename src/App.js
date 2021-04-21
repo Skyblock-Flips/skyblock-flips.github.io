@@ -3,7 +3,7 @@ import './App.css';
 // React
 import React, { Component } from 'react';
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Route,
   Switch,
 } from 'react-router-dom';
