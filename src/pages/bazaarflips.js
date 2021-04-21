@@ -118,7 +118,22 @@ class BazaarFlips extends Component {
                           scope="row"
                           className={classes.tableItem}
                         >
-                          <a href={"/#/itemview/" + e} className={classes.link}>{this.state.names[e]}</a>
+                          <a href={'/#/itemview/' + e} className={classes.link}>
+                            {this.state.names[e] === undefined ? (
+                              <span style={{ color: 'orange' }}>
+                                {e
+                                  .replace(/_/g, ' ')
+                                  .replace(/\S*/g, function (word) {
+                                    return (
+                                      word.charAt(0) +
+                                      word.slice(1).toLowerCase()
+                                    );
+                                  })}
+                              </span>
+                            ) : (
+                              this.state.names[e]
+                            )}
+                          </a>
                         </TableCell>
                         <TableCell align="right" className={classes.tableItem}>
                           {

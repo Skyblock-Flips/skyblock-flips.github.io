@@ -74,9 +74,17 @@ class ItemView extends Component {
         <header className="App-header">
           <Card className={classes.card}>
             <h1>
-              {this.state.names === undefined
-                ? 'Loading...'
-                : this.state.names[item]}
+              {this.state.names === undefined ? (
+                'Loading...'
+              ) : this.state.names[item] === undefined ? (
+                <span style={{ color: 'orange' }}>
+                  {item.replace(/_/g, ' ').replace(/\S*/g, function (word) {
+                    return word.charAt(0) + word.slice(1).toLowerCase();
+                  })}
+                </span>
+              ) : (
+                this.state.names[item]
+              )}
             </h1>
             {this.state.items.margins === undefined ? null : (
               <TableContainer component={Paper}>
