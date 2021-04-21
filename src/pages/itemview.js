@@ -25,7 +25,12 @@ const styles = {
     backgroundColor: '#424242',
     color: '#ffffff',
     margin: '12.5%',
-    height: '50%',
+    display: 'inline-block',
+  },
+  image: {
+    width: 25,
+    height: 25,
+    display: 'inline-block',
   },
 };
 
@@ -95,6 +100,9 @@ class ItemView extends Component {
                 >
                   <TableHead>
                     <TableRow>
+                      <TableCell align="left" className={classes.tableItem}>
+                        <b>Item Image</b>
+                      </TableCell>
                       <TableCell align="center" className={classes.tableItem}>
                         <b>Margin</b>
                       </TableCell>
@@ -117,6 +125,24 @@ class ItemView extends Component {
                   </TableHead>
                   <TableBody>
                     <TableRow key={1} hover>
+                      <TableCell align="left" className={classes.tableItem}>
+                        <img
+                          src={'https://sky.lea.moe/item/' + item}
+                          alt={
+                            this.state.names[item] === undefined
+                              ? item
+                                  .replace(/_/g, ' ')
+                                  .replace(/\S*/g, function (word) {
+                                    return (
+                                      word.charAt(0) +
+                                      word.slice(1).toLowerCase()
+                                    );
+                                  })
+                              : this.state.names[item]
+                          }
+                          className={classes.image}
+                        />
+                      </TableCell>
                       <TableCell align="center" className={classes.tableItem}>
                         {
                           <span
@@ -151,15 +177,15 @@ class ItemView extends Component {
                           <span
                             style={{
                               color:
-                                this.state.items.margins.items[item].margin > 0
+                                this.state.items.margins.items[item].pureMargin > 0
                                   ? '#00ff00'
                                   : this.state.items.margins.items[item]
-                                      .margin === 0
+                                      .pureMargin === 0
                                   ? 'grey'
                                   : '#ff0000',
                             }}
                           >
-                            {(this.state.items.margins.items[item].margin >= 0
+                            {(this.state.items.margins.items[item].pureMargin >= 0
                               ? '+'
                               : '') +
                               this.state.items.margins.items[item].pureMargin
