@@ -23,6 +23,9 @@ class Home extends Component {
           <a href="./#/bazaar" className={classes.link}>
             <Button className={classes.button}>Bazaar Flips</Button>
           </a>
+          <a href="." className={classes.link}>
+            <Button className={classes.button}>Auction Items (Coming Soon)</Button>
+          </a>
         </header>
       </div>
     );

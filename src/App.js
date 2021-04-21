@@ -12,6 +12,7 @@ import {
 import Home from './pages/home';
 import BazaarFlips from './pages/bazaarflips';
 import ItemView from './pages/itemview';
+import AuctionItems from './pages/auctionitems';
 import PageNotFound from './pages/pagenotfound';
 
 // Styling
