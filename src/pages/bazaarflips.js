@@ -176,7 +176,8 @@ class BazaarFlips extends Component {
                 calculating as this is how most of the sell and buy offers are
                 made. <br /> <br />
                 This also only updates every 5 seconds to not max out the
-                hypixel api.
+                hypixel api. <br /> <br />
+                Click on an item name to see more info about it!
               </p>
             </div>
           </div>

@@ -91,10 +91,19 @@ class ItemView extends Component {
                         <b>Margin</b>
                       </TableCell>
                       <TableCell align="center" className={classes.tableItem}>
+                        <b>Pure Margin</b>
+                      </TableCell>
+                      <TableCell align="center" className={classes.tableItem}>
                         <b>Buy Price</b>
                       </TableCell>
                       <TableCell align="center" className={classes.tableItem}>
+                        <b># of Buy Orders</b>
+                      </TableCell>
+                      <TableCell align="center" className={classes.tableItem}>
                         <b>Sell Price</b>
+                      </TableCell>
+                      <TableCell align="center" className={classes.tableItem}>
+                        <b># of Sell Orders</b>
                       </TableCell>
                     </TableRow>
                   </TableHead>
@@ -130,14 +139,48 @@ class ItemView extends Component {
                         }
                       </TableCell>
                       <TableCell align="center" className={classes.tableItem}>
+                        {
+                          <span
+                            style={{
+                              color:
+                                this.state.items.margins.items[item].margin > 0
+                                  ? '#00ff00'
+                                  : this.state.items.margins.items[item]
+                                      .margin === 0
+                                  ? 'grey'
+                                  : '#ff0000',
+                            }}
+                          >
+                            {(this.state.items.margins.items[item].margin >= 0
+                              ? '+'
+                              : '') +
+                              this.state.items.margins.items[item].pureMargin
+
+                                .toFixed(1)
+                                .toString()
+                                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                          </span>
+                        }
+                      </TableCell>
+                      <TableCell align="center" className={classes.tableItem}>
                         {this.state.items.margins.items[item].buyOffer
                           .toFixed(1)
                           .toString()
                           .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                       </TableCell>
                       <TableCell align="center" className={classes.tableItem}>
+                        {this.state.items.data[item].quick_status.buyOrders
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                      </TableCell>
+                      <TableCell align="center" className={classes.tableItem}>
                         {this.state.items.margins.items[item].sellOffer
                           .toFixed(1)
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                      </TableCell>
+                      <TableCell align="center" className={classes.tableItem}>
+                        {this.state.items.data[item].quick_status.sellOrders
                           .toString()
                           .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                       </TableCell>
