@@ -292,7 +292,9 @@ class BazaarFlips extends Component {
                 made. <br /> <br />
                 This also only updates every 5 seconds to not max out the
                 hypixel api. <br /> <br />
-                Click on an item name to see more info about it!
+                Click on an item name to see more info about it! <br /> <br />
+                You can also click on the bar below "Sort with:" and choose how
+                you want to sort based on what you want.
               </p>
             </div>
           </div>
