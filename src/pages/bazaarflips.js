@@ -198,28 +198,31 @@ class BazaarFlips extends Component {
                   </TableHead>
                   <TableBody>
                     {this.state.order[this.state.sortValue].map((e, i) => (
-                      <TableRow key={i + 1} hover>
+                      <TableRow
+                        key={i + 1}
+                        hover
+                        onClick={(event) => {
+                          window.location.replace('/#/itemview/' + e);
+                        }}
+                      >
                         <TableCell
                           component="th"
                           scope="row"
                           className={classes.tableItem}
                         >
-                          <a href={'/#/itemview/' + e} className={classes.link}>
-                            {this.state.names[e] === undefined ? (
-                              <span style={{ color: 'orange' }}>
-                                {e
-                                  .replace(/_/g, ' ')
-                                  .replace(/\S*/g, function (word) {
-                                    return (
-                                      word.charAt(0) +
-                                      word.slice(1).toLowerCase()
-                                    );
-                                  })}
-                              </span>
-                            ) : (
-                              this.state.names[e]
-                            )}
-                          </a>
+                          {this.state.names[e] === undefined ? (
+                            <span style={{ color: 'orange' }}>
+                              {e
+                                .replace(/_/g, ' ')
+                                .replace(/\S*/g, function (word) {
+                                  return (
+                                    word.charAt(0) + word.slice(1).toLowerCase()
+                                  );
+                                })}
+                            </span>
+                          ) : (
+                            this.state.names[e]
+                          )}
                         </TableCell>
                         <TableCell align="right" className={classes.tableItem}>
                           {
@@ -295,7 +298,7 @@ class BazaarFlips extends Component {
                 made. <br /> <br />
                 This also only updates every 5 seconds to not max out the
                 hypixel api. <br /> <br />
-                Click on an item name to see more info about it! <br /> <br />
+                Click on a row info about the item it's about! <br /> <br />
                 You can also click on the bar below "Sort with:" and choose how
                 you want to sort based on what you want.
               </p>
