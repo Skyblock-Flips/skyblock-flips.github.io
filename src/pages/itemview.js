@@ -38,6 +38,7 @@ class ItemView extends Component {
   state = {
     items: {},
     names: {},
+    prices: {},
   };
 
   componentDidMount() {
@@ -56,6 +57,15 @@ class ItemView extends Component {
         this.setState({
           ...this.state,
           names: res.data,
+        });
+      });
+
+    axios
+      .get('https://skyblockflips-api.asra.repl.co/bazaar/prices')
+      .then((res) => {
+        this.setState({
+          ...this.state,
+          prices: res.data,
         });
       });
   }
@@ -122,6 +132,12 @@ class ItemView extends Component {
                         <b># of Sell Orders</b>
                       </TableCell>
                       <TableCell align="center" className={classes.tableItem}>
+                        <b>NPC Buy Price</b>
+                      </TableCell>
+                      <TableCell align="center" className={classes.tableItem}>
+                        <b>NPC Sell Price</b>
+                      </TableCell>
+                      <TableCell align="center" className={classes.tableItem}>
                         <b>Product ID</b>
                       </TableCell>
                     </TableRow>
@@ -180,7 +196,8 @@ class ItemView extends Component {
                           <span
                             style={{
                               color:
-                                this.state.items.margins.items[item].pureMargin > 0
+                                this.state.items.margins.items[item]
+                                  .pureMargin > 0
                                   ? '#00ff00'
                                   : this.state.items.margins.items[item]
                                       .pureMargin === 0
@@ -188,7 +205,8 @@ class ItemView extends Component {
                                   : '#ff0000',
                             }}
                           >
-                            {(this.state.items.margins.items[item].pureMargin >= 0
+                            {(this.state.items.margins.items[item].pureMargin >=
+                            0
                               ? '+'
                               : '') +
                               this.state.items.margins.items[item].pureMargin
@@ -220,6 +238,34 @@ class ItemView extends Component {
                         {this.state.items.data[item].quick_status.sellOrders
                           .toString()
                           .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                      </TableCell>
+                      <TableCell align="center" className={classes.tableItem}>
+                        {this.state.prices[item] === undefined ? (
+                          <span style={{ color: 'red' }}>Unknown</span>
+                        ) : this.state.prices[item].buy === -1 ? (
+                          <span style={{ color: 'red' }}>
+                            Cannot Buy from NPC
+                          </span>
+                        ) : (
+                          this.state.prices[item].buy
+                            .toFixed(1)
+                            .toString()
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                        )}
+                      </TableCell>
+                      <TableCell align="center" className={classes.tableItem}>
+                        {this.state.prices[item] === undefined ? (
+                          <span style={{ color: 'red' }}>Unknown</span>
+                        ) : this.state.prices[item].sell === -1 ? (
+                          <span style={{ color: 'red' }}>
+                            Cannot Sell to NPC
+                          </span>
+                        ) : (
+                          this.state.prices[item].sell
+                            .toFixed(1)
+                            .toString()
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                        )}
                       </TableCell>
                       <TableCell align="center" className={classes.tableItem}>
                         {this.state.items.data[item].product_id}
