@@ -121,6 +121,9 @@ class ItemView extends Component {
                       <TableCell align="center" className={classes.tableItem}>
                         <b># of Sell Orders</b>
                       </TableCell>
+                      <TableCell align="center" className={classes.tableItem}>
+                        <b>Product ID</b>
+                      </TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -217,6 +220,9 @@ class ItemView extends Component {
                         {this.state.items.data[item].quick_status.sellOrders
                           .toString()
                           .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                      </TableCell>
+                      <TableCell align="center" className={classes.tableItem}>
+                        {this.state.items.data[item].product_id}
                       </TableCell>
                     </TableRow>
                   </TableBody>
