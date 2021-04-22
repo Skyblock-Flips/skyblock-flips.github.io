@@ -22,10 +22,10 @@ import axios from 'axios';
 const styles = {
   ...theme.spreadIt,
   card: {
-    width: '75%',
+    width: '85%',
     backgroundColor: '#424242',
     color: '#ffffff',
-    margin: '12.5%',
+    margin: '7.5%',
     display: 'inline-block',
   },
   image: {
@@ -271,6 +271,94 @@ class ItemView extends Component {
                       <TableCell align="center" className={classes.tableItem}>
                         {this.state.items.data[item].product_id}
                       </TableCell>
+                    </TableRow>
+                    <TableRow key={2}>
+                      <TableCell align="center" className={classes.tableItem}>
+                        <b>Total Items in Buy Orders</b>
+                      </TableCell>
+                      <TableCell align="center" className={classes.tableItem}>
+                        <b>Total Items in Sell Orders</b>
+                      </TableCell>
+                      <TableCell align="center" className={classes.tableItem}>
+                        <b>Average Buy Order Amount</b>
+                      </TableCell>
+                      <TableCell align="center" className={classes.tableItem}>
+                        <b>Average Sell Order Amount</b>
+                      </TableCell>
+                      <TableCell align="center" className={classes.tableItem}>
+                        <b>Items Bought in Last Week</b>
+                      </TableCell>
+                      <TableCell align="center" className={classes.tableItem}>
+                        <b>Items Sold in Last Week</b>
+                      </TableCell>
+                      <TableCell align="center" className={classes.tableItem}>
+                        <b></b>
+                      </TableCell>
+                      <TableCell align="center" className={classes.tableItem}>
+                        <b></b>
+                      </TableCell>
+                      <TableCell align="center" className={classes.tableItem}>
+                        <b></b>
+                      </TableCell>
+                      <TableCell align="center" className={classes.tableItem}>
+                        <b></b>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow key={3} hover>
+                      <TableCell align="Center" className={classes.tableItem}>
+                        {this.state.items.data[item].quick_status.buyVolume
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                      </TableCell>
+                      <TableCell align="center" className={classes.tableItem}>
+                        {this.state.items.data[item].quick_status.sellVolume
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                      </TableCell>
+                      <TableCell align="center" className={classes.tableItem}>
+                        {(
+                          this.state.items.data[item].quick_status.buyVolume /
+                          this.state.items.data[item].quick_status.buyOrders
+                        )
+                          .toFixed(1)
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                      </TableCell>
+                      <TableCell align="center" className={classes.tableItem}>
+                        {(
+                          this.state.items.data[item].quick_status.sellVolume /
+                          this.state.items.data[item].quick_status.sellOrders
+                        )
+                          .toFixed(1)
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                      </TableCell>
+                      <TableCell align="center" className={classes.tableItem}>
+                        {this.state.items.data[item].quick_status.buyMovingWeek
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                      </TableCell>
+                      <TableCell align="center" className={classes.tableItem}>
+                        {this.state.items.data[item].quick_status.sellMovingWeek
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                      </TableCell>
+                      <TableCell
+                        align="center"
+                        className={classes.tableItem}
+                      ></TableCell>
+                      <TableCell
+                        align="center"
+                        className={classes.tableItem}
+                      ></TableCell>
+                      <TableCell
+                        align="center"
+                        className={classes.tableItem}
+                      ></TableCell>
+                      <TableCell
+                        align="center"
+                        className={classes.tableItem}
+                      ></TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
