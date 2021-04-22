@@ -42,14 +42,23 @@ const styles = {
   },
   search: {
     color: 'white',
-    marginBottom: "1%",
+    marginBottom: '1%',
   },
 };
 
 class AuctionItems extends Component {
   state = {
     items: {},
-    search: ""
+    search: '',
+    page: 0,
+  };
+
+  splitToChunks = (l) => {
+    let out = [];
+    for (let i = 0; i < l.length; i += 50) {
+      out.push(l.slice(i, i + 50));
+    }
+    return out;
   };
 
   componentDidMount() {
@@ -72,7 +81,7 @@ class AuctionItems extends Component {
           items: res.data,
         });
       });
-  }, 20000);
+  }, 120000);
 
   render() {
     const { classes } = this.props;
@@ -87,10 +96,10 @@ class AuctionItems extends Component {
                 variant="outlined"
                 className={classes.search}
                 onChange={(s) => {
-                    this.setState({
-                        ...this.state,
-                        search: (s === null ? "" : s),
-                    })
+                  this.setState({
+                    ...this.state,
+                    search: s === null ? '' : s,
+                  });
                 }}
                 fullWidth
               />
@@ -120,42 +129,58 @@ class AuctionItems extends Component {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {Object.keys(this.state.items).map((e, i) => {
-                    return e.includes(this.state.search) ? <TableRow key={i + 1} hover>
-                        <TableCell
-                          component="th"
-                          scope="row"
-                          className={classes.tableItem}
-                        >
-                          {e}
-                        </TableCell>
-                        <TableCell align="right" className={classes.tableItem}>
-                          {this.state.items[e].value
-                            .toFixed(1)
-                            .toString()
-                            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                        </TableCell>
-                        <TableCell align="right" className={classes.tableItem}>
-                          {this.state.items[e].prices[0]
-                            .toFixed(1)
-                            .toString()
-                            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                        </TableCell>
-                        <TableCell align="right" className={classes.tableItem}>
-                          {this.state.items[e].prices[
-                            this.state.items[e].prices.length - 1
-                          ]
-                            .toFixed(1)
-                            .toString()
-                            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                        </TableCell>
-                        <TableCell align="right" className={classes.tableItem}>
-                          {this.state.items[e].prices.length
-                            .toString()
-                            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                        </TableCell>
-                      </TableRow> : null}
-                    )}
+                    {this.splitToChuncks(Object.keys(this.state.items))[
+                      this.state.page
+                    ].map((e, i) => {
+                      return e.includes(this.state.search) ? (
+                        <TableRow key={i + 1} hover>
+                          <TableCell
+                            component="th"
+                            scope="row"
+                            className={classes.tableItem}
+                          >
+                            {e}
+                          </TableCell>
+                          <TableCell
+                            align="right"
+                            className={classes.tableItem}
+                          >
+                            {this.state.items[e].value
+                              .toFixed(1)
+                              .toString()
+                              .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                          </TableCell>
+                          <TableCell
+                            align="right"
+                            className={classes.tableItem}
+                          >
+                            {this.state.items[e].prices[0]
+                              .toFixed(1)
+                              .toString()
+                              .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                          </TableCell>
+                          <TableCell
+                            align="right"
+                            className={classes.tableItem}
+                          >
+                            {this.state.items[e].prices[
+                              this.state.items[e].prices.length - 1
+                            ]
+                              .toFixed(1)
+                              .toString()
+                              .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                          </TableCell>
+                          <TableCell
+                            align="right"
+                            className={classes.tableItem}
+                          >
+                            {this.state.items[e].prices.length
+                              .toString()
+                              .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                          </TableCell>
+                        </TableRow>
+                      ) : null;
+                    })}
                   </TableBody>
                 </Table>
               </TableContainer>

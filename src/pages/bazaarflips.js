@@ -5,7 +5,6 @@ import React, { Component } from 'react';
 
 // MUI
 import { withStyles } from '@material-ui/core/styles';
-import theme from '../util/theme';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -14,6 +13,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Select from '@material-ui/core/Select';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import theme from '../util/theme';
 
 // axios
 import axios from 'axios';
@@ -234,17 +235,19 @@ class BazaarFlips extends Component {
                                     : '#ff0000',
                               }}
                             >
-                              {(this.getMarginForValue(e) >= 0 ? '+' : '') +
-                                (this.state.sortValue === 1
-                                  ? this.getMarginForValue(e)
-                                  : Math.round(
-                                      this.getMarginForValue(e) * 10000
-                                    ) / 100
-                                )
-                                  .toFixed(1)
-                                  .toString()
-                                  .replace(/\B(?=(\d{3})+(?!\d))/g, ',') +
-                                (this.state.sortValue === 1 ? '%' : '')}
+                              {this.getMarginForValue(e) === null
+                                ? 'Cannot Happen'
+                                : (this.getMarginForValue(e) >= 0 ? '+' : '') +
+                                  (this.state.sortValue === 1
+                                    ? this.getMarginForValue(e)
+                                    : Math.round(
+                                        this.getMarginForValue(e) * 10000
+                                      ) / 100
+                                  )
+                                    .toFixed(1)
+                                    .toString()
+                                    .replace(/\B(?=(\d{3})+(?!\d))/g, ',') +
+                                  (this.state.sortValue === 1 ? '%' : '')}
                             </span>
                           }
                         </TableCell>
@@ -296,6 +299,9 @@ class BazaarFlips extends Component {
                 You can also click on the bar below "Sort with:" and choose how
                 you want to sort based on what you want.
               </p>
+              <a href="/#/" className={classes.link}>
+                <Button className={classes.button}>Back to homepage</Button>
+              </a>
             </div>
           </div>
         </header>
