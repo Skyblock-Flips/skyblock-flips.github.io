@@ -250,7 +250,7 @@ class BazaarFlips extends Component {
                                     .toFixed(1)
                                     .toString()
                                     .replace(/\B(?=(\d{3})+(?!\d))/g, ',') +
-                                  (this.state.sortValue === 1 ? '%' : '')}
+                                  (this.state.sortValue === 1 ? '' : '%')}
                             </span>
                           }
                         </TableCell>
