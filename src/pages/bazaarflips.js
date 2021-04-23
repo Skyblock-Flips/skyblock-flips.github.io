@@ -152,7 +152,6 @@ class BazaarFlips extends Component {
 
   render() {
     const { classes } = this.props;
-    console.log(this.state.order);
     return (
       <div className="App">
         <header className="App-header">
