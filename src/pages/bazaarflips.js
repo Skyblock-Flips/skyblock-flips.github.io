@@ -129,7 +129,7 @@ class BazaarFlips extends Component {
       case 1:
         return this.state.items[e].buyOffer;
       case 2:
-        return this.state.prices[e].buy;
+        return (!this.state.prices[e] ? -1 : this.state.prices[e].buy);
       case 3:
         return this.state.items[e].buyOffer;
       default:
@@ -144,7 +144,7 @@ class BazaarFlips extends Component {
       case 2:
         return this.state.items[e].sellOffer;
       case 3:
-        return this.state.prices[e].sell;
+        return (!this.state.prices[e] ? -1 : this.state.prices[e].sell);
       default:
         return this.state.items[e].sellOffer;
     }
@@ -297,7 +297,7 @@ class BazaarFlips extends Component {
                 made. <br /> <br />
                 This also only updates every 5 seconds to not max out the
                 hypixel api. <br /> <br />
-                Click on a row info about the item it's about! <br /> <br />
+                Click on a row to get more info on the item! <br /> <br />
                 You can also click on the bar below "Sort with:" and choose how
                 you want to sort based on what you want.
               </p>
